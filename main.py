@@ -19,7 +19,7 @@ template_id = os.environ["TEMPLATE_ID"]
 
 
 def get_weather():
-  url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
+  url = "https://devapi.qweather.com/v7/weather/now?location=101010100&key=a5d75526455f47158bbacf1189b356db"
   res = requests.get(url).json()
   print('res++',res)
   weather = res['data']['list'][0]
