@@ -21,7 +21,7 @@ template_id = os.environ["TEMPLATE_ID"]
 def get_weather():
   url = "https://devapi.qweather.com/v7/weather/now?location=101010100&key=a5d75526455f47158bbacf1189b356db"
   res = requests.get(url).json()
-  weather = res.now
+  weather = res['now']
   print('res++',weather)
   return weather['text']  + weather['windDir'], math.floor(weather['temp'])
 
