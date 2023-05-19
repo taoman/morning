@@ -21,9 +21,9 @@ template_id = os.environ["TEMPLATE_ID"]
 def get_weather():
   url = "https://devapi.qweather.com/v7/weather/now?location=101010100&key=a5d75526455f47158bbacf1189b356db"
   res = requests.get(url).json()
-  print('res++',res)
-  weather = res['data']['list'][0]
-  return weather['weather'], math.floor(weather['temp'])
+  weather = res.now
+  print('res++',weather)
+  return weather['text']  + weather['windDir'], math.floor(weather['temp'])
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
