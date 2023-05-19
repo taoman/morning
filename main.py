@@ -14,7 +14,7 @@ birthday = os.environ['BIRTHDAY']
 app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
 
-user_ids = os.environ["USER_ID"].split(',')
+user_id = os.environ["USER_ID"]
 template_id = os.environ["TEMPLATE_ID"]
 
 
@@ -22,13 +22,12 @@ def get_weather():
   url = "https://devapi.qweather.com/v7/weather/now?location=101010100&key=a5d75526455f47158bbacf1189b356db"
   res = requests.get(url).json()
   weather = res['now']
-  print('res++',weather)
   return weather['text']  , weather['temp']
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")
   return delta.days
-print('bithday+++',birthday)
+
 def get_birthday():
   next = datetime.strptime(str(date.today().year) + "-" + birthday, "%Y-%m-%d")
   if next < datetime.now():
@@ -50,7 +49,7 @@ client = WeChatClient(app_id, app_secret)
 wm = WeChatMessage(client)
 wea, temperature = get_weather()
 data = {"weather":{"value":wea},"temperature":{"value":temperature},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
-for user_id in user_ids;
+
 res = wm.send_template(user_id, template_id, data)
 print('words',data)
 print(res)
