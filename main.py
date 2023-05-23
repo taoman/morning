@@ -75,6 +75,7 @@ def judgment_length(e):
     return [words, words1, words2, words3, words4, words5, words6]
   
 def get_words():
+  global total_data
   words = requests.get("https://api.shadiao.pro/chp")
   data = words.json()['data']['text']
   total_data = judgment_length(data)
@@ -91,7 +92,7 @@ client = WeChatClient(app_id, app_secret)
 # "love_days":{"value":get_count()},
 wm = WeChatMessage(client)
 wea, temperature = get_weather()
-data = {"weather":{"value":wea},"temperature":{"value":temperature},"birthday_left":{"value":get_birthday()},"words":{"value":get_words()[0]},"words1":{"value":get_words()[1]},"words2":{"value":get_words()[2]},"words3":{"value":get_words()[3]},"words4":{"value":get_words()[4]},"words5":{"value":get_words()[5]},"words6":{"value":get_words()[6]},}
+data = {"weather":{"value":wea},"temperature":{"value":temperature},"birthday_left":{"value":get_birthday()},"words":{"value":total_data[0]},"words1":{"value":total_data[1]},"words2":{"value":total_data[2]},"words3":{"value":total_data[3]},"words4":{"value":total_data[4]},"words5":{"value":total_data[5]},"words6":{"value":total_data[6]},}
 
 res = wm.send_template(user_id, template_id, data)
 print('words',data)
