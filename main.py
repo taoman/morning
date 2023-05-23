@@ -87,6 +87,7 @@ def get_words():
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
 
+get_words()
 
 client = WeChatClient(app_id, app_secret)
 # "love_days":{"value":get_count()},
