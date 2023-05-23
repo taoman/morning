@@ -78,6 +78,7 @@ def get_words():
   words = requests.get("https://api.shadiao.pro/chp")
   data = words.json()['data']['text']
   total_data = judgment_length(data)
+  print('total_data',total_data)
   if words.status_code != 200:
     return get_words()
   return total_data
