@@ -34,11 +34,53 @@ def get_birthday():
     next = next.replace(year=next.year + 1)
   return (next - today).days
 
+def judgment_length(e):
+    length = len(e)
+    words = words1 = words2 = words3 = words4 = words5 = words6 = ''
+    if length <= 20:
+        words = e
+    elif 20 < length <= 40:
+        words = e[0:20]
+        words1 = e[20:39]
+    elif 40 < length <= 60:
+        words = e[0:20]
+        words1 = e[20:39]
+        words2 = e[40:59]
+    elif 60 < length <= 80:
+        words = e[0:20]
+        words1 = e[20:39]
+        words2 = e[40:59]
+        words3 = e[60:79]
+    elif 80 < length <= 100:
+        words = e[0:20]
+        words1 = e[20:39]
+        words2 = e[40:59]
+        words3 = e[60:79]
+        words4 = e[80:99]
+    elif 100 < length <= 120:
+        words = e[0:20]
+        words1 = e[20:39]
+        words2 = e[40:59]
+        words3 = e[60:79]
+        words4 = e[80:99]
+        words5 = e[100:119]
+    elif 120 < length <= 140:
+        words = e[0:20]
+        words1 = e[20:39]
+        words2 = e[40:59]
+        words3 = e[60:79]
+        words4 = e[80:99]
+        words5 = e[100:119]
+        words6 = e[120:139]
+    return [words, words1, words2, words3, words4, words5, words6]
+  
 def get_words():
   words = requests.get("https://api.shadiao.pro/chp")
+  data = words.json()['data']['text']
+  total_data = judgment_length(data)
   if words.status_code != 200:
     return get_words()
-  return words.json()['data']['text']
+  return total_data
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
@@ -48,7 +90,7 @@ client = WeChatClient(app_id, app_secret)
 # "love_days":{"value":get_count()},
 wm = WeChatMessage(client)
 wea, temperature = get_weather()
-data = {"weather":{"value":wea},"temperature":{"value":temperature},"birthday_left":{"value":get_birthday()},"words":{"value":get_words(), "color":get_random_color()}}
+data = {"weather":{"value":wea},"temperature":{"value":temperature},"birthday_left":{"value":get_birthday()},"words":{"value":get_words()[0]},"words1":{"value":get_words()[1]},"words2":{"value":get_words()[2]},"words3":{"value":get_words()[3]},"words4":{"value":get_words()[4]},"words5":{"value":get_words()[5]},"words6":{"value":get_words()[6]},}
 
 res = wm.send_template(user_id, template_id, data)
 print('words',data)
